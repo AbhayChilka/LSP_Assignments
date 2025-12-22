@@ -48,5 +48,6 @@ int main()
     printf("Total bytes gets read are %d\n", No);
     close(fd);
 
+    printf("Hello");
     return 0;
 }
