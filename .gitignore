@@ -1,4 +1,6 @@
 # Compiled files
+**/myexe
+**/*.exe
 *.exe
 *.out
 *.o
