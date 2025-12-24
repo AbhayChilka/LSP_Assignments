@@ -27,13 +27,6 @@
         - Actual bytes read depend on file size and EOF.        
 */
 
-/*
-    Function Name : ReadData
-    Description   : Reads N bytes from a given file and prints on console
-    Input         : file name,
-                    bytes -> number of bytes to read
-    Return Value  : None
-*/
 
 #include<stdio.h>   // Standard I/O functions like printf()
 #include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
@@ -43,6 +36,13 @@
 
 #define BUFFER_NO 100
 
+/*
+    Function Name : ReadData
+    Description   : Reads N bytes from a given file and prints on console
+    Input         : file name,
+                    bytes -> number of bytes to read
+    Return Value  : None
+*/
 void ReadData(char *fname, int bytes)
 {
     int fd = 0;

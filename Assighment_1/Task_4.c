@@ -33,19 +33,18 @@
         about the target file, not the link itself.    
 */
 
-/*
-    Function Name : FileInfo
-    Description   : Displays complete metadata of a file using stat()
-    Input         : fname -> file name
-    Return Value  : None
-*/
-
 #include<stdio.h>   // Standard I/O functions like printf()
 #include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
 #include<errno.h>   // For errno variable and error codes
 #include<unistd.h>  // Provides POSIX system calls: read(), write(), close()
 #include<sys/stat.h> // Provides definitions for file metadata (struct stat) and functions like stat(), lstat(), fstat()
 
+/*
+    Function Name : FileInfo
+    Description   : Displays complete metadata of a file using stat()
+    Input         : fname -> file name
+    Return Value  : None
+*/
 void FileInfo(char *fname)
 {
     struct stat sobj;

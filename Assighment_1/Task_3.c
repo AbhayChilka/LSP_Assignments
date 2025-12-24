@@ -23,6 +23,11 @@
     access() checks file permission without opening the file
 */
 
+#include<stdio.h>   // Standard I/O functions like printf()
+#include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
+#include<errno.h>   // For errno variable and error codes
+#include<unistd.h>  // Provides POSIX system calls: read(), write(), close()
+
 /*
     Function Name : FileAccess
     Description   : Checks file permission using access() system call
@@ -30,12 +35,6 @@
                     mode  -> (R_OK / W_OK / X_OK)
     Return Value  : 0 success, -1 on failure
 */
-
-#include<stdio.h>   // Standard I/O functions like printf()
-#include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
-#include<errno.h>   // For errno variable and error codes
-#include<unistd.h>  // Provides POSIX system calls: read(), write(), close()
-
 int FileAccess(char fname[], char mode)
 {
     int fd = -1;

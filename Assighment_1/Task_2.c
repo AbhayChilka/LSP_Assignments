@@ -14,6 +14,11 @@
     On error, -1 is returned and errno is set to indicate the error.
 */
 
+#include<stdio.h>   // Standard I/O functions like printf()
+#include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
+#include<errno.h>   // For errno variable and error codes
+#include<unistd.h>  // Provides POSIX system calls: read(), write(), close()
+
 /*
     Function Name : OpenFile
     Description   : Opens file in specified mode using open()
@@ -21,13 +26,6 @@
                     mode  -> R(Read), W(Write), D(Read+Write), A(Append)
     Return Value  : File descriptor on success, -1 on failure
 */
-
-#include<stdio.h>   // Standard I/O functions like printf()
-#include<fcntl.h>   // File control options: open(), O_RDONLY, O_WRONLY
-#include<errno.h>   // For errno variable and error codes
-#include<unistd.h>  // Provides POSIX system calls: read(), write(), close()
-
-
 int OpenFile(char fname[], char mode)
 {
     int fd = -1;
