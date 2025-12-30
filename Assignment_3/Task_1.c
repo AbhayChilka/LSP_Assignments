@@ -28,13 +28,10 @@ void CopyFile(char *sFile, char *dFile)
 {
     int fd1 = 0;
     int fd2 = 0;
-    char Buffer[SIZE_BUFFER + 1];
+    char Buffer[SIZE_BUFFER];
     int iRead = 0;
     int iWrite = 0;
     int No = 0;
-
-    //Initialize buffer with NULL characters
-    memset(Buffer, '\0', SIZE_BUFFER);
 
     fd1 = open(sFile, O_RDONLY);     // Open source file in read-only mode
     if (fd1 == -1)
