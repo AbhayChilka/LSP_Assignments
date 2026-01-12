@@ -1,0 +1,21 @@
+#include<fcntl.h>    //file control
+#include<stdio.h>
+
+int main()
+{
+    int fd = 0;
+
+    fd = open("Second.c",O_CREAT,0777);
+
+    if(fd == -1)
+    {
+        printf("Unable to create file\n");
+    }
+    else
+    {
+        printf("FIle gets successfully created with fd : %d\n", fd);
+    }
+
+    return 0;
+}
+
