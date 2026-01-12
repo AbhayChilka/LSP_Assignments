@@ -16,7 +16,7 @@
 #include<dirent.h>   // Directory handling functions and structures: opendir(), readdir(), closedir(), struct dirent
 #include<sys/types.h>  // Defines system data types used by system calls such as pid_t, size_t, off_t, ino_t
 
-#define SIZE_BUFFER 100
+#define SIZE_BUFFER 1024
 
 void WriteDir(char *ssname, char *ddname)
 {
@@ -33,7 +33,7 @@ void WriteDir(char *ssname, char *ddname)
         printf("Reason : %s\n", strerror(errno));
     }
 
-    fd2 = open(ddname, O_RDWR);
+    fd2 = open(ddname, O_RDWR | O_CREAT  , 0777);
     if (fd2 == -1)
     {
         printf("Unable to open file\n");
@@ -45,6 +45,9 @@ void WriteDir(char *ssname, char *ddname)
         iWrite = write(fd2, Buffer, iRead);
     }
     
+    close(fd1);
+    close(fd2);
+
 }
 
 /*
@@ -60,37 +63,13 @@ void MovFileToDir(char *sdname, char *ddname)
     struct stat ssobj;           // Structure to hold file metadata
     int iRet1 = 0;
 
-    DIR *destdp = NULL;         // Directory stream pointer
-    struct dirent *dptr = NULL;   // Directory entry pointer
-    struct stat dsobj;           // Structure to hold file metadata
-    int iRet2 = 0;
-
-    char spath[100];             // Stores full path of file
-    char dpath[100];             // Stores full path of file
+    char spath[512];             // Stores full path of file
+    char dpath[512];             // Stores full path of file
     int fCount = 0;             //to store count
 
+    mkdir(ddname, 0777);  //if source directory contains sub directories then for recursive need to create new same sub directory in dest
+
     sourcedp = opendir(sdname);
-
-    if(sourcedp == NULL)
-    {
-        printf("%s\n", strerror(errno));
-    }
-    else
-    {
-        printf("Source Directory gets successfully opened\n");
-    }
-
-    destdp = opendir(ddname);
-
-    if(destdp == NULL)
-    {
-        printf("%s\n", strerror(errno));
-    }
-    else
-    {
-        printf("Destination Directory gets successfully opened\n");
-    }
-
 
     while(sptr = readdir(sourcedp))
     {        
@@ -111,12 +90,16 @@ void MovFileToDir(char *sdname, char *ddname)
 
         if(S_ISREG(ssobj.st_mode))
         {   
-            (WriteDir(spath,spath));
+            (WriteDir(spath,dpath));
         }
+        else if (S_ISDIR(ssobj.st_mode))
+        {
+            MovFileToDir(spath,dpath);
+        }
+        
     }
 
     closedir(sourcedp);
-    closedir(destdp);
 }
 
 int main()
