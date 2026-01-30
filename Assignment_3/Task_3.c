@@ -39,7 +39,7 @@ void WriteDir(char *ssname, char *ddname)
         printf("Unable to open file\n");
         printf("Reason : %s\n", strerror(errno));
     }
-
+    
     while ((iRead = read(fd1, Buffer, SIZE_BUFFER)) > 0)
     {
         iWrite = write(fd2, Buffer, iRead);
@@ -47,6 +47,7 @@ void WriteDir(char *ssname, char *ddname)
     
     close(fd1);
     close(fd2);
+    remove(ssname);
 
 }
 
@@ -65,13 +66,14 @@ void MovFileToDir(char *sdname, char *ddname)
 
     char spath[512];             // Stores full path of file
     char dpath[512];             // Stores full path of file
-    int fCount = 0;             //to store count
 
     mkdir(ddname, 0777);  //if source directory contains sub directories then for recursive need to create new same sub directory in dest
 
-    sourcedp = opendir(sdname);
+    sourcedp = opendir(sdname);     //open source directory
 
-    while(sptr = readdir(sourcedp))
+
+    while(sptr = readdir(sourcedp))      //read source directory
+
     {        
         if(strcmp(sptr->d_name, ".") == 0 || strcmp(sptr->d_name, "..") == 0)
         {
@@ -98,8 +100,8 @@ void MovFileToDir(char *sdname, char *ddname)
         }
         
     }
-
     closedir(sourcedp);
+    rmdir(sdname);
 }
 
 int main()
