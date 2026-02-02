@@ -1,3 +1,6 @@
+
+int Sum(int A, int B);
+
 int Addition(int A, int B)
 {
     int Ans = 0;

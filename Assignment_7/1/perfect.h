@@ -1,0 +1,2 @@
+
+int IsPerfect(int No);
